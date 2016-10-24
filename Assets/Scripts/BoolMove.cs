@@ -9,15 +9,30 @@ using System.Collections;
  * Purpose: Changing the jump to an add force
 **/
 
+public enum Direction {LEFT, RIGHT};
+
 public class BoolMove : MonoBehaviour {
     // Instance Variables
     public int horizontalChange = 0;
     public int jumpHeight = 0;
     public float speed = 0;
     public float thrust = 0;
-    public Rigidbody2D rb; 
+    public Rigidbody2D rb;
+    private JoshCanJump JoshCanJump;
+    //private bool grounded = false;
+
+    private Direction playerDirection = Direction.RIGHT;
+
+    public Direction PlayerDirection
+    {
+        get
+        {
+            return playerDirection;
+        }
+    }
     // void Start() : Use this for initialization *****************************
     void Start () {
+        JoshCanJump = GetComponent<JoshCanJump>();
 	
 	}
 
@@ -36,6 +51,16 @@ public class BoolMove : MonoBehaviour {
         transform.Translate(horizontal, 0, 0);
         //transform.Translate(0, vertical, 0);
 
+        if(horizontal > 0)
+        {
+            playerDirection = Direction.RIGHT;
+        }
+        else if(horizontal < 0)
+        {
+            playerDirection = Direction.LEFT;
+        }
+
+
         /*
         // Movement from directional keys
         if (Input.GetKeyDown(KeyCode.A))
@@ -53,7 +78,10 @@ public class BoolMove : MonoBehaviour {
         */
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(transform.up * thrust);
+            if (JoshCanJump.getGrounded())
+            {
+                rb.AddForce(transform.up * thrust);
+            }
             /*
             Vector3 position = this.transform.position;
             position.y = position.y + jumpHeight; // Up
@@ -62,4 +90,18 @@ public class BoolMove : MonoBehaviour {
         }
         
     }
+
+    /*
+    void OnCollisionEnter (Collision col)
+    {
+        if(col.gameObject.tag == ("Ground"))
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+    }
+    */
 }
