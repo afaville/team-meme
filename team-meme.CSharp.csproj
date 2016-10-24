@@ -63,7 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\BoolMove.cs" />
+    <Compile Include="Assets\Scripts\JoshBullet.cs" />
+    <Compile Include="Assets\Scripts\JoshCanJump.cs" />
+    <Compile Include="Assets\Scripts\JoshWeapon.cs" />
     <Compile Include="Assets\Scripts\JudsonsCollisionCode.cs" />
     <Compile Include="Assets\Scripts\MovePosition.cs" />
     <Compile Include="Assets\Scripts\Rotation.cs" />
