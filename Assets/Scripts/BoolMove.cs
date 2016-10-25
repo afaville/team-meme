@@ -5,8 +5,8 @@ using System.Collections;
  * Date Started: 10/16/16
  * Purpose: General Movement Code for Test Scene
  * Author: Joshua Bush
- * Date edited: 10/23/16
- * Purpose: Changing the jump to an add force
+ * Date edited: 10/23/16; 10/24/16
+ * Purpose: Changing the jump to an add force; Added a collision detection to the jump
 **/
 
 public enum Direction {LEFT, RIGHT};
@@ -18,8 +18,6 @@ public class BoolMove : MonoBehaviour {
     public float speed = 0;
     public float thrust = 0;
     public Rigidbody2D rb;
-    private JoshCanJump JoshCanJump;
-    //private bool grounded = false;
 
     private Direction playerDirection = Direction.RIGHT;
 
@@ -32,7 +30,6 @@ public class BoolMove : MonoBehaviour {
     }
     // void Start() : Use this for initialization *****************************
     void Start () {
-        JoshCanJump = GetComponent<JoshCanJump>();
 	
 	}
 
@@ -78,7 +75,11 @@ public class BoolMove : MonoBehaviour {
         */
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (JoshCanJump.getGrounded())
+            /*Checks if the rigidbody is touching anything that is on the layer "Ground"
+             * You can add items to this layer in unity
+             * Not sure if this will cause issues later on but for now it works 
+             */
+            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
                 rb.AddForce(transform.up * thrust);
             }
@@ -90,18 +91,4 @@ public class BoolMove : MonoBehaviour {
         }
         
     }
-
-    /*
-    void OnCollisionEnter (Collision col)
-    {
-        if(col.gameObject.tag == ("Ground"))
-        {
-            grounded = true;
-        }
-        else
-        {
-            grounded = false;
-        }
-    }
-    */
 }
