@@ -28,7 +28,6 @@ public class JoshBullet : MonoBehaviour {
         float translate = moveDirection * speed * Time.deltaTime;
         _transform.Translate(translate, 0, 0);
 
-        Destroy(this.gameObject,lifeTime);
-	
+        Destroy(this.gameObject,lifeTime);	
 	}
 }
