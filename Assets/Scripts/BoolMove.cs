@@ -9,7 +9,7 @@ using System.Collections;
  * Purpose: Changing the jump to an add force; Added a collision detection to the jump
 **/
 
-public enum Direction {LEFT, RIGHT};
+public enum Direction {LEFT, RIGHT}; // Not a bad idea
 
 public class BoolMove : MonoBehaviour {
     // Instance Variables
@@ -37,17 +37,12 @@ public class BoolMove : MonoBehaviour {
     void Update () {
 
         float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
-        /*
-        if (vertical < 0)
-        {
-            vertical = 0;
-        }*/
         horizontal = horizontal * Time.deltaTime * horizontalChange * speed;
         //vertical = vertical * Time.deltaTime * jumpHeight * speed;
         transform.Translate(horizontal, 0, 0);
         //transform.Translate(0, vertical, 0);
 
+        // Gets Player's Direction
         if(horizontal > 0)
         {
             playerDirection = Direction.RIGHT;
@@ -57,22 +52,27 @@ public class BoolMove : MonoBehaviour {
             playerDirection = Direction.LEFT;
         }
 
+        // Get's the Player to stop when the Collider touchs a designated Layer
+        // If the player is touching the left rail, it should only go right.
+        if (playerDirection == Direction.LEFT 
+            && rb.IsTouchingLayers(LayerMask.GetMask("RailLeft")))
+        {
+            if (horizontal > 0)
+            {
+                horizontal = 0;
+            }
+        }
+        // Else If the player is touching the right rail, 
+        // it should only go right
+        else if (playerDirection == Direction.RIGHT
+                 && rb.IsTouchingLayers(LayerMask.GetMask("RailRight")))
+        {
+            if (horizontal < 0)
+            {
+                horizontal = 0;
+            }
+        }
 
-        /*
-        // Movement from directional keys
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Vector3 position = this.transform.position;
-            position.x = position.x - horizontalChange; // Left
-            this.transform.position = position;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Vector3 position = this.transform.position;
-            position.x = position.x + horizontalChange; // Right
-            this.transform.position = position;
-        }
-        */
         if (Input.GetKeyDown(KeyCode.Space))
         {
             /*Checks if the rigidbody is touching anything that is on the layer "Ground"
@@ -83,11 +83,6 @@ public class BoolMove : MonoBehaviour {
             {
                 rb.AddForce(transform.up * thrust);
             }
-            /*
-            Vector3 position = this.transform.position;
-            position.y = position.y + jumpHeight; // Up
-            this.transform.position = position;
-            */
         }
         
     }
