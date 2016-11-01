@@ -12,8 +12,9 @@ public class EnemyProperties : MonoBehaviour {
 
     // Public Variables
     public int health = 0;
+    public int attack = 0;
     public GameObject go;
-    public JoshBullet bullet; // Hey look Josh we're actually using your stuff
+    public JoshBullet bullet; 
 
 	// Use this for initialization
 	void Start () {
