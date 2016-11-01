@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BoolMove.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\EnemyProperties.cs" />
+     <Compile Include="Assets\Scripts\Enemy Scripts\KillEnemy.cs" />
+     <Compile Include="Assets\Scripts\GameOverScript.cs" />
+     <Compile Include="Assets\Scripts\GoToScene.cs" />
+     <Compile Include="Assets\Scripts\JoshBullet.cs" />
+     <Compile Include="Assets\Scripts\JoshWeapon.cs" />
      <Compile Include="Assets\Scripts\JudsonsCollisionCode.cs" />
      <Compile Include="Assets\Scripts\MovePosition.cs" />
      <Compile Include="Assets\Scripts\Rotation.cs" />
