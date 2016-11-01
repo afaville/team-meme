@@ -6,10 +6,11 @@ using System.Collections;
  * Purpose: General Movement Code for Test Scene
  * Author: Joshua Bush
  * Date edited: 10/23/16; 10/24/16
- * Purpose: Changing the jump to an add force; Added a collision detection to the jump
+ * Purpose: Changing the jump to an add force; Added a collision detection to 
+ *          the jump
 **/
 
-public enum Direction {LEFT, RIGHT}; // Not a bad idea
+public enum Direction {LEFT, RIGHT};
 
 public class BoolMove : MonoBehaviour {
     // Instance Variables
@@ -18,6 +19,7 @@ public class BoolMove : MonoBehaviour {
     public float speed = 0;
     public float thrust = 0;
     public Rigidbody2D rb;
+    public float velocityCap = 0;
 
     private Direction playerDirection = Direction.RIGHT;
 
@@ -37,41 +39,27 @@ public class BoolMove : MonoBehaviour {
     void Update () {
 
         float horizontal = Input.GetAxis("Horizontal");
-        horizontal = horizontal * Time.deltaTime * horizontalChange * speed;
-        //vertical = vertical * Time.deltaTime * jumpHeight * speed;
-        transform.Translate(horizontal, 0, 0);
-        //transform.Translate(0, vertical, 0);
+        /*horizontal = horizontal * Time.deltaTime * horizontalChange * speed;
+        transform.Translate(horizontal, 0, 0);*/
 
-        // Gets Player's Direction
         if(horizontal > 0)
         {
             playerDirection = Direction.RIGHT;
+            if (rb.velocity.magnitude <= velocityCap)
+            {
+                rb.AddForce(transform.right * speed);
+            }
         }
         else if(horizontal < 0)
         {
             playerDirection = Direction.LEFT;
+            if (rb.velocity.magnitude <= velocityCap)
+            {
+                rb.AddForce(transform.right * -speed);
+            }
         }
 
-        // Get's the Player to stop when the Collider touchs a designated Layer
-        // If the player is touching the left rail, it should only go right.
-        if (playerDirection == Direction.LEFT 
-            && rb.IsTouchingLayers(LayerMask.GetMask("RailLeft")))
-        {
-            if (horizontal > 0)
-            {
-                horizontal = 0;
-            }
-        }
-        // Else If the player is touching the right rail, 
-        // it should only go right
-        else if (playerDirection == Direction.RIGHT
-                 && rb.IsTouchingLayers(LayerMask.GetMask("RailRight")))
-        {
-            if (horizontal < 0)
-            {
-                horizontal = 0;
-            }
-        }
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

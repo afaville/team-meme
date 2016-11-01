@@ -3,7 +3,7 @@ using System.Collections;
 /******************************************************************************
  * Author: Joshua Bush
  * Date Started: 10/23/16
- * Purpose: Generate a new bullet and set it's direction to the players 
+ * Purpose: Generate a new bullet and set it's direction to the players
  *          facing direction
  */
 
@@ -16,16 +16,21 @@ public class JoshWeapon : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         BoolMove = GetComponent<BoolMove>();
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        /*Creates a clone of the bullet object and gets the direction that
+         * the player is currently facing*/
         if(Input.GetKeyDown(KeyCode.J))
         {
-            var tBullet = Instantiate(bullet, gameObject.transform.position,
-                                      bullet.transform.rotation) as GameObject;
-            tBullet.GetComponent<JoshBullet>().bulletDirection 
-                                      = BoolMove.PlayerDirection;
+            var tBullet = Instantiate(bullet, gameObject.transform.position, 
+                bullet.transform.rotation) as GameObject;
+
+            tBullet.GetComponent<JoshBullet>().bulletDirection = 
+                BoolMove.PlayerDirection;
         }
 	
 	}
