@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/LevelSelect.unity
+=======
+- path: Assets/Scenes/Enemy Level.unity
+>>>>>>> master
   isLoaded: 1
   isActive: 1
