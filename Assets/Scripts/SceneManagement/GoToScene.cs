@@ -11,16 +11,20 @@ using UnityEngine.SceneManagement; // The Whole Point of this Script
 
 public class GoToScene : MonoBehaviour {
 
+<<<<<<< HEAD:Assets/Scripts/GoToScene.cs
+    public static int SceneNumber = 0;
+=======
     private static int SceneNumber = 2;
+>>>>>>> master:Assets/Scripts/SceneManagement/GoToScene.cs
     public string LayerName = "";
     public GameObject go;
     public Rigidbody2D rb;
-    public Scene scene = SceneManager.GetSceneAt(SceneNumber);
+    public Scene scene;
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+        scene = SceneManager.GetSceneAt(SceneNumber);
+}
 	
 	// Update is called once per frame
 	void Update () {
