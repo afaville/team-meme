@@ -5,10 +5,16 @@ using System.Collections;
  * Date Started: 10/16/16
  * Purpose: General Movement Code for Test Scene
  * Author: Joshua Bush
- * Date edited: 10/23/16; 10/24/16
- * Purpose: Changing the jump to an add force; Added a collision detection to 
- *          the jump
-**/
+ * Date edited: 10/23/16;
+ *              10/24/16;
+ *              11/1/16;
+ * Purpose: Changing the jump to an add force;
+ *          Added a collision detection to the jump;
+ *          Changed the movement system to an addforce, added statments that
+ *          will stop the movement when no keys are being pressed unless player
+ *          is in the air, changed the input from the horizontal access to 
+ *          keypresses;
+ */
 
 public enum Direction {LEFT, RIGHT};
 
@@ -16,10 +22,9 @@ public class BoolMove : MonoBehaviour {
     // Instance Variables
     public int horizontalChange = 0;
     public int jumpHeight = 0;
-    public float speed = 0;
+    public float speed = 5;
     public float thrust = 0;
     public Rigidbody2D rb;
-    public float velocityCap = 0;
 
     private Direction playerDirection = Direction.RIGHT;
 
@@ -37,25 +42,36 @@ public class BoolMove : MonoBehaviour {
 
     // void Update() : Update is called once per frame ************************
     void Update () {
-
+        //Gets he current velocity in the x axis
+        float xVel = transform.InverseTransformDirection(rb.velocity).x;
         float horizontal = Input.GetAxis("Horizontal");
-        /*horizontal = horizontal * Time.deltaTime * horizontalChange * speed;
-        transform.Translate(horizontal, 0, 0);*/
+        //Subtracts the absolute value of the vel from the speed set
+        float tempSpeed = speed - Mathf.Abs(xVel);
 
-        if(horizontal > 0)
+        if(Input.GetKey(KeyCode.D))
         {
             playerDirection = Direction.RIGHT;
-            if (rb.velocity.magnitude <= velocityCap)
-            {
-                rb.AddForce(transform.right * speed);
-            }
+            rb.AddForce(transform.right * tempSpeed);
         }
-        else if(horizontal < 0)
+        else if(Input.GetKey(KeyCode.A))
         {
             playerDirection = Direction.LEFT;
-            if (rb.velocity.magnitude <= velocityCap)
+                rb.AddForce(transform.right * -tempSpeed);
+        }
+
+        /*Checks when the input keys are no longer pressed or when the horizontal 
+         * input is 0 (added the horizontal because GetKeyUp only is true on the
+         * frame that the key is lifted, so if the character is jumping he would
+         * keep rolling after the jump)
+         * Then checks if the player is on the ground and if he is then zeros out
+         * the velocity in the x axis
+         */
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D) || horizontal == 0)
+        {
+            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
-                rb.AddForce(transform.right * -speed);
+                Vector2 tempVect = new Vector2(0, rb.velocity.y);
+                rb.velocity = tempVect;
             }
         }
 
