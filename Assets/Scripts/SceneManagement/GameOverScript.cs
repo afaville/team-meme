@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement; // The Whole Point of this Script
 
 public class GameOverScript : MonoBehaviour {
 
-    public static int gameOverNumber = 1;
+    public static int gameOverNumber = 4;
     public GameObject go;
     public Rigidbody2D rb;
     public Scene scene = SceneManager.GetSceneAt(gameOverNumber);
