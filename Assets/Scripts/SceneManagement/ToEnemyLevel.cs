@@ -26,7 +26,7 @@ public class ToEnemyLevel : MonoBehaviour {
     {
         if (rb.IsTouchingLayers(LayerMask.GetMask(LayerName)))
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(5);
             SceneManager.MoveGameObjectToScene(go, scene);
         }
     }
